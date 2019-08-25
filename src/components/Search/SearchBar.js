@@ -54,10 +54,11 @@ class SearchBar extends Component {
         <div className="col s12 m6 l6 input-field">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search by language name"
             list="browsers"
             value={this.state.text}
             onChange={this.fetchSearchData}
+            style={{ border: '1px solid #e0e0e0' }}
           />
 
           <datalist id="browsers">
@@ -82,7 +83,7 @@ class SearchBar extends Component {
           <div className="col s12">
             {this.state.languages.map((e, i) => (
               <button
-                className="btn marginLect"
+                className={`btn ${i != 0 ? 'marginLect' : ''} marginBottom`}
                 onClick={this.searchRecordBtn.bind(this)}
                 key={`btn${i}`}
                 value={e}

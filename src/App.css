@@ -19,6 +19,56 @@
   background: var(--light-color);
   color: #333;
 }
-.marginLect{
+
+.marginLect {
   margin-left: 1rem;
+
+}
+
+.marginBottom {
+  margin-bottom: 1rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  margin: 5%;
+}
+
+@media screen and (max-width: 992px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+nav {
+  background-color: transparent !important;
+  box-shadow: unset !important;
+}
+
+nav ul a {
+  color: #2B3595 !important;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.btn {
+  background: #2B3595 !important;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  box-shadow: 0 0 0 1px #2B3595 !important;
+}
+
+.pagination li.active {
+  background: #2B3595 !important;
 }

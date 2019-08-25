@@ -30,7 +30,7 @@ function User(props) {
     return <Loader />;
   } else {
     return (
-      <div className="grid-container" style={gridStyle}>
+      <div className="grid-container">
         {items.map(item => (
           <UserItem key={item.id} item={item} />
         ))}

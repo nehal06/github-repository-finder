@@ -4,6 +4,7 @@ import User from './components/users/User';
 import SearchBar from './components/Search/SearchBar';
 import ReactPaginate from 'react-paginate';
 import Alert from './components/layout/Alert';
+import blobShape from './components/layout/blob-shape.svg';
 import axios from 'axios';
 import './App.css';
 
@@ -108,7 +109,17 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar name="Github finder" />
-        <div className="row">
+        <div
+          style={{
+            position: 'fixed',
+            top: '-40%',
+            right: '-5%',
+            zIndex: '-1'
+          }}
+        >
+          <img src={blobShape} style={{ height: '110%', width: '160%' }} />
+        </div>
+        <div className="row" style={{ margin: '5%' }}>
           <Alert alert={this.state.alert} />
         </div>
         <div className="row" style={{ margin: '5%' }}>
@@ -121,7 +132,7 @@ class App extends React.Component {
 
         <User items={this.state.items} loading={this.state.loading} />
         {this.state.totalCount != 0 && (
-          <div className="row">
+          <div className="row" style={{ margin: '5%' }}>
             <div className="col s12">
               <ReactPaginate
                 previousLabel={'previous'}
@@ -139,6 +150,16 @@ class App extends React.Component {
             </div>
           </div>
         )}
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '-0%',
+            left: '-20%',
+            zIndex: '-1'
+          }}
+        >
+          <img src={blobShape} style={{ height: '300px', width: '100%' }} />
+        </div>
       </div>
     );
   }
