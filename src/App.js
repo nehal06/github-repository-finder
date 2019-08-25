@@ -111,7 +111,7 @@ class App extends React.Component {
         <div className="row">
           <Alert alert={this.state.alert} />
         </div>
-        <div className="row">
+        <div className="row" style={{ margin: '5%' }}>
           <SearchBar
             searchRepo={this.searchRepo}
             setAlert={this.setAlert}
