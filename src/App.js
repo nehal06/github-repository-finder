@@ -110,14 +110,15 @@ class App extends React.Component {
       <div className="App">
         <Navbar name="Github finder" />
         <div
-          style={{
+          className="bigBlobContainer"
+         /*  style={{
             position: 'fixed',
             top: '-40%',
             right: '-5%',
             zIndex: '-1'
-          }}
+          }} */
         >
-          <img src={blobShape} style={{ height: '110%', width: '160%' }} />
+          <img src={blobShape} className="blobBigImg" />
         </div>
         <div className="row" style={{ margin: '5%' }}>
           <Alert alert={this.state.alert} />
@@ -151,14 +152,15 @@ class App extends React.Component {
           </div>
         )}
         <div
-          style={{
+          className="smallBlobContainer"
+          /* style={{
             position: 'fixed',
             bottom: '-0%',
             left: '-20%',
             zIndex: '-1'
-          }}
+          }} */
         >
-          <img src={blobShape} style={{ height: '300px', width: '100%' }} />
+          <img src={blobShape} className="blobSmallImg" />
         </div>
       </div>
     );
