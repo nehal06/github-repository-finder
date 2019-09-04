@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Navbar from './components/layout/Navbar';
+import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 import User from './components/users/User';
 import SearchBar from './components/Search/SearchBar';
 import ReactPaginate from 'react-paginate';
 import Alert from './components/layout/Alert';
 import blobShape from './components/layout/blob-shape.svg';
 import axios from 'axios';
+import About from './pages/About';
 import './App.css';
 
 class App extends React.Component {
@@ -107,62 +109,75 @@ class App extends React.Component {
   };
   render() {
     return (
-      <div className="App">
-        <Navbar name="Github finder" />
-        <div
-          className="bigBlobContainer"
-         /*  style={{
+      <Router>
+        <div className="App">
+          <Navbar name="Github finder" />
+          <div
+            className="bigBlobContainer"
+            /*  style={{
             position: 'fixed',
             top: '-40%',
             right: '-5%',
             zIndex: '-1'
           }} */
-        >
-          <img src={blobShape} className="blobBigImg" />
-        </div>
-        <div className="row" style={{ margin: '5%' }}>
-          <Alert alert={this.state.alert} />
-        </div>
-        <div className="row" style={{ margin: '5%' }}>
-          <SearchBar
-            searchRepo={this.searchRepo}
-            setAlert={this.setAlert}
-            clearuser={this.clearuser}
-          />
-        </div>
-
-        <User items={this.state.items} loading={this.state.loading} />
-        {this.state.totalCount != 0 && (
-          <div className="row" style={{ margin: '5%' }}>
-            <div className="col s12">
-              <ReactPaginate
-                previousLabel={'previous'}
-                nextLabel={'next'}
-                breakLabel={'...'}
-                breakClassName={'break-me'}
-                pageCount={this.state.pageCount}
-                marginPagesDisplayed={10}
-                pageRangeDisplayed={10}
-                onPageChange={this.handlePageClick}
-                containerClassName={'pagination'}
-                subContainerClassName={'pages pagination'}
-                activeClassName={'active'}
-              />
-            </div>
+          >
+            <img src={blobShape} className="blobBigImg" />
           </div>
-        )}
-        <div
-          className="smallBlobContainer"
-          /* style={{
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <Fragment>
+                  <div className="row" style={{ margin: '5%' }}>
+                    <Alert alert={this.state.alert} />
+                  </div>
+                  <div className="row" style={{ margin: '5%' }}>
+                    <SearchBar
+                      searchRepo={this.searchRepo}
+                      setAlert={this.setAlert}
+                      clearuser={this.clearuser}
+                    />
+                  </div>
+
+                  <User items={this.state.items} loading={this.state.loading} />
+                  {this.state.totalCount != 0 && (
+                    <div className="row" style={{ margin: '5%' }}>
+                      <div className="col s12">
+                        <ReactPaginate
+                          previousLabel={'previous'}
+                          nextLabel={'next'}
+                          breakLabel={'...'}
+                          breakClassName={'break-me'}
+                          pageCount={this.state.pageCount}
+                          marginPagesDisplayed={10}
+                          pageRangeDisplayed={10}
+                          onPageChange={this.handlePageClick}
+                          containerClassName={'pagination'}
+                          subContainerClassName={'pages pagination'}
+                          activeClassName={'active'}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </Fragment>
+              )}
+            />
+            <Route exact path="/about" component={About} />
+          </Switch>
+          <div
+            className="smallBlobContainer"
+            /* style={{
             position: 'fixed',
             bottom: '-0%',
             left: '-20%',
             zIndex: '-1'
           }} */
-        >
-          <img src={blobShape} className="blobSmallImg" />
+          >
+            <img src={blobShape} className="blobSmallImg" />
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
