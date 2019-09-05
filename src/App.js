@@ -8,6 +8,7 @@ import Alert from './components/layout/Alert';
 import blobShape from './components/layout/blob-shape.svg';
 import axios from 'axios';
 import About from './pages/About';
+import UserProfile from './pages/UserProfile';
 import './App.css';
 
 class App extends React.Component {
@@ -19,7 +20,8 @@ class App extends React.Component {
     loading: false,
     currentLanguage: '',
     pageCount: 0,
-    alert: null
+    alert: null,
+    user: {}
   };
   /* using promise and then */
   // componentDidMount() {
@@ -76,7 +78,7 @@ class App extends React.Component {
   };
 
   handlePageClick = async ele => {
-    console.log(`first load handle click : ${this.state.currentLanguage}`);
+    console.log(`handle Page click : ${this.state.currentLanguage}`);
     this.setState({
       items: [],
       loading: true
@@ -93,9 +95,24 @@ class App extends React.Component {
       });
     } catch (error) {
       console.log(error);
-      this.setState({ loading: true });
+      this.setState({ loading: false });
     }
     this.setState({ loading: false });
+  };
+  /* GET sINGLE USER DATA */
+  getSingleUser = async userName => {
+    this.setState({
+      loading: true
+    });
+    let url = `https://api.github.com/users/${userName}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`;
+    try {
+      const res = await axios.get(url);
+
+      this.setState({ user: res.data, loading: false });
+    } catch (error) {
+      console.log(error);
+      this.setState({ loading: false });
+    }
   };
   setAlert = (msg, type) => {
     console.log(msg);
@@ -164,6 +181,18 @@ class App extends React.Component {
               )}
             />
             <Route exact path="/about" component={About} />
+            <Route
+              exact
+              path="/user/:login"
+              render={props => (
+                <UserProfile
+                  {...props}
+                  getSingleUser={this.getSingleUser}
+                  user={this.state.user}
+                  loading={this.state.loading}
+                />
+              )}
+            />
           </Switch>
           <div
             className="smallBlobContainer"

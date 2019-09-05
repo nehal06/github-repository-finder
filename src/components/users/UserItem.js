@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const UserItem = ({ item: { id, name, owner, language, html_url, forks } }) => {
   return (
@@ -14,9 +15,10 @@ const UserItem = ({ item: { id, name, owner, language, html_url, forks } }) => {
         </div>
         <div className="col s8">
           <h5>
-            <a href={owner.html_url} target="_blank">
+            {/*  <a href={owner.html_url} target="_blank">
               {owner.login}
-            </a>
+            </a> */}
+            <Link to={`/user/${owner.login}`}>{owner.login}</Link>
           </h5>
           <h6 className="black-text teal-text">{name}</h6>
           <br />

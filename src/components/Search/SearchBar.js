@@ -84,7 +84,7 @@ class SearchBar extends Component {
             {this.state.languages.map((e, i) => (
               <button
                 className={`btn ${i != 0 ? 'marginLect' : ''} marginBottom`}
-                onClick={this.searchRecordBtn.bind(this)}
+                onClick={this.searchRecordBtn}
                 key={`btn${i}`}
                 value={e}
               >
