@@ -18,7 +18,9 @@ const UserItem = ({ item: { id, name, owner, language, html_url, forks } }) => {
             {/*  <a href={owner.html_url} target="_blank">
               {owner.login}
             </a> */}
-            <Link to={`/user/${owner.login}`}>{owner.login}</Link>
+            <Link to={`/user/${owner.login}`} title="Go To User Profile">
+              {owner.login}
+            </Link>
           </h5>
           <h6 className="black-text teal-text">{name}</h6>
           <br />
@@ -26,6 +28,7 @@ const UserItem = ({ item: { id, name, owner, language, html_url, forks } }) => {
             className="btn-floating halfway-fab btn-large red hoverEffect"
             target="_blank"
             href={html_url}
+            title="Go To Repository"
           >
             <i className="material-icons left">keyboard_arrow_right</i>View More
           </a>

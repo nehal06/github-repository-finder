@@ -1,101 +1,97 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 
-class SearchBar extends Component {
-  state = {
-    text: '',
-    languages: [
-      'c',
-      'C++',
-      'c#',
-      'javascript',
-      'java',
-      'css',
-      'html',
-      'python'
-    ],
-    alert: null,
-    triggerClickType: 'search'
-  };
+const SearchBar = ({ setAlert, searchRepo, clearuser }) => {
+  const [text, setText] = useState('');
+  // const [alert,setAlert] = useState(null);
+  const [triggerClickType, setTriggerClickType] = useState('search');
 
-  fetchSearchData = e => {
-    this.setState({ text: e.target.value });
+  const languages = [
+    'c',
+    'C++',
+    'c#',
+    'javascript',
+    'java',
+    'css',
+    'html',
+    'python'
+  ];
+  const fetchSearchData = e => {
+    // this.setState({ text: e.target.value });
+    setText(e.target.value);
   };
   //search repo
-  searchRecords = () => {
-    if (this.state.text === '') {
-      this.props.setAlert('Please provide language name for search', 'light');
-    } else if (!this.state.languages.includes(this.state.text)) {
-      this.props.setAlert(
-        'Please provide valid language name for search',
-        'light'
-      );
-      this.setState({ text: '' });
-    } else if (this.state.languages.includes(this.state.text)) {
-      this.setState({ triggerClickType: 'search' });
-      this.props.searchRepo(this.state.text, this.state.triggerClickType);
-      this.setState({ text: '' });
+  const searchRecords = () => {
+    if (text === '') {
+      // this.props.setAlert('Please provide language name for search', 'light');
+      setAlert('Please provide language name for search', 'light');
+    } else if (!languages.includes(text)) {
+      setAlert('Please provide valid language name for search', 'light');
+      // this.setState({ text: '' });
+      setText('');
+    } else if (languages.includes(text)) {
+      setTriggerClickType('search');
+      searchRepo(text, triggerClickType);
+      // this.setState({ text: '' });
+      setText('');
     }
   };
-
-  searchRecordBtn = e => {
+  /* on click of language button */
+  const searchRecordBtn = e => {
     e.preventDefault();
     console.log(e.target.value);
     // this.setState({ text: e.target.value });
-    this.setState({ triggerClickType: 'button' });
-    this.props.searchRepo(e.target.value, this.state.triggerClickType);
+    // this.setState({ triggerClickType: 'button' });
+    setTriggerClickType('button');
+    searchRepo(e.target.value, triggerClickType);
   };
 
-  Clearuser = () => {
-    this.props.clearuser();
+  const Clearuser = () => {
+    clearuser();
   };
-  render() {
-    return (
-      <Fragment>
-        <div className="col s12 m6 l6 input-field">
-          <input
-            type="text"
-            placeholder="Search by language name"
-            list="browsers"
-            value={this.state.text}
-            onChange={this.fetchSearchData}
-            style={{ border: '1px solid #e0e0e0' }}
-          />
 
-          <datalist id="browsers">
-            {this.state.languages.map((e, i) => (
-              <option key={i} value={e} />
-            ))}
-          </datalist>
-        </div>
-        <div className="col s12 m2 l2 input-field">
-          <button className="btn" onClick={this.searchRecords}>
-            Search
-          </button>
-          <button
-            className="btn grey lighten-1 marginLect"
-            onClick={this.Clearuser}
-          >
-            clear
-          </button>
-        </div>
+  return (
+    <Fragment>
+      <div className="col s12 m6 l6 input-field">
+        <input
+          type="text"
+          placeholder="Search by language name"
+          list="browsers"
+          value={text}
+          onChange={fetchSearchData}
+          style={{ border: '1px solid #e0e0e0' }}
+        />
 
-        <div className="row">
-          <div className="col s12">
-            {this.state.languages.map((e, i) => (
-              <button
-                className={`btn ${i != 0 ? 'marginLect' : ''} marginBottom`}
-                onClick={this.searchRecordBtn}
-                key={`btn${i}`}
-                value={e}
-              >
-                {e}
-              </button>
-            ))}
-          </div>
+        <datalist id="browsers">
+          {languages.map((e, i) => (
+            <option key={i} value={e} />
+          ))}
+        </datalist>
+      </div>
+      <div className="col s12 m2 l2 input-field">
+        <button className="btn" onClick={searchRecords}>
+          Search
+        </button>
+        <button className="btn grey lighten-1 marginLect" onClick={Clearuser}>
+          clear
+        </button>
+      </div>
+
+      <div className="row">
+        <div className="col s12">
+          {languages.map((e, i) => (
+            <button
+              className={`btn ${i != 0 ? 'marginLect' : ''} marginBottom`}
+              onClick={searchRecordBtn}
+              key={`btn${i}`}
+              value={e}
+            >
+              {e}
+            </button>
+          ))}
         </div>
-      </Fragment>
-    );
-  }
-}
+      </div>
+    </Fragment>
+  );
+};
 
 export default SearchBar;
