@@ -12,7 +12,15 @@ import {
   SET_CURRENT_LANG,
   SET_PAGE_NO
 } from '../types';
-
+let githubClientId;
+let githubClientSecret;
+if (process.env.NODE_ENV !== 'production') {
+  githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+} else {
+  githubClientId = process.env.GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+}
 const GithubState = props => {
   const initialState = {
     items: [],
@@ -36,7 +44,7 @@ const GithubState = props => {
     });
     try {
       let encodedText = encodeURIComponent(text);
-      let url = `https://api.github.com/search/repositories?q=language:${encodedText}&sort=forks&order=desc&page=${state.pageNo}&per_page=${state.perPage}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`;
+      let url = `https://api.github.com/search/repositories?q=language:${encodedText}&sort=forks&order=desc&page=${state.pageNo}&per_page=${state.perPage}&client_id=${githubClientId}&client_secret=${githubClientSecret}`;
 
       const res = await axios.get(url);
       console.log(res.data);
@@ -87,7 +95,7 @@ const GithubState = props => {
     //   loading: true
     // });
     setLoading();
-    let url = `https://api.github.com/users/${userName}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`;
+    let url = `https://api.github.com/users/${userName}?client_id=${githubClientId}&client_secret=${githubClientSecret}`;
     try {
       const res = await axios.get(url);
 
@@ -124,7 +132,7 @@ const GithubState = props => {
       type: SET_PAGE_NO,
       payload: selectedPage + 1
     });
-    let url = `https://api.github.com/search/repositories?q=language:${encodedText}&sort=forks&order=desc&page=${state.pageNo}&per_page=${state.perPage}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`;
+    let url = `https://api.github.com/search/repositories?q=language:${encodedText}&sort=forks&order=desc&page=${state.pageNo}&per_page=${state.perPage}&client_id=${githubClientId}&client_secret=${githubClientSecret}`;
     try {
       const res = await axios.get(url);
       // this.setState({
