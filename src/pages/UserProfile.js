@@ -1,11 +1,14 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useContext } from 'react';
 import './UserProfile.css';
+import GithubContext from '../context/github/githubContext';
 
-const UserProfile = ({ getSingleUser, user, match }) => {
+const UserProfile = ({ match }) => {
+  const githubContext = useContext(GithubContext);
+  const { user, getSingleUser } = githubContext;
   useEffect(() => {
     console.log('componentDidMount');
     getSingleUser(match.params.login);
-  });
+  }, []);
 
   console.log(user);
   const { avatar_url, html_url, login, type, bio, public_repos } = user;

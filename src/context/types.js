@@ -1,0 +1,11 @@
+export const SEARCH_REPO = 'SEARCH_REPO';
+export const HANDLE_PAGE_CLICK = 'HANDLE_PAGE_CLICK';
+export const GET_SINGLE_USER = 'GET_SINGLE_USER';
+export const SET_ALERT = 'SHOW_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
+export const CLEAR_USER = 'CLEAR_USER';
+export const SET_LOADING = 'SET_LOADING';
+export const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
+export const SET_PAGE_COUNT = 'SET_PAGE_COUNT';
+export const SET_CURRENT_LANG = 'SET_CURRENT_LANG';
+export const SET_PAGE_NO = 'SET_PAGE_NO';

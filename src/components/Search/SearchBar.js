@@ -1,6 +1,9 @@
-import React, { useState, Fragment } from 'react';
-
-const SearchBar = ({ setAlert, searchRepo, clearuser }) => {
+import React, { useState, Fragment, useContext } from 'react';
+import GithubContext from '../../context/github/githubContext';
+import AlertContext from '../../context/alert/alertContext';
+const SearchBar = () => {
+  const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
   const [text, setText] = useState('');
   // const [alert,setAlert] = useState(null);
   const [triggerClickType, setTriggerClickType] = useState('search');
@@ -23,14 +26,14 @@ const SearchBar = ({ setAlert, searchRepo, clearuser }) => {
   const searchRecords = () => {
     if (text === '') {
       // this.props.setAlert('Please provide language name for search', 'light');
-      setAlert('Please provide language name for search', 'light');
+      alertContext.setAlert('Please provide language name for search', 'light');
     } else if (!languages.includes(text)) {
-      setAlert('Please provide valid language name for search', 'light');
+      alertContext.setAlert('Please provide language name for search', 'light');
       // this.setState({ text: '' });
       setText('');
     } else if (languages.includes(text)) {
       setTriggerClickType('search');
-      searchRepo(text, triggerClickType);
+      githubContext.searchRepo(text, triggerClickType);
       // this.setState({ text: '' });
       setText('');
     }
@@ -42,11 +45,11 @@ const SearchBar = ({ setAlert, searchRepo, clearuser }) => {
     // this.setState({ text: e.target.value });
     // this.setState({ triggerClickType: 'button' });
     setTriggerClickType('button');
-    searchRepo(e.target.value, triggerClickType);
+    githubContext.searchRepo(e.target.value, triggerClickType);
   };
 
   const Clearuser = () => {
-    clearuser();
+    githubContext.clearuser();
   };
 
   return (
