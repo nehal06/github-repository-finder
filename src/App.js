@@ -6,6 +6,7 @@ import SearchBar from './components/Search/SearchBar';
 import Alert from './components/layout/Alert';
 import blobShape from './components/layout/blob-shape.svg';
 import Pagination from './components/layout/Pagination';
+import NotFound from './pages/NotFound';
 import About from './pages/About';
 import UserProfile from './pages/UserProfile';
 import './App.css';
@@ -84,6 +85,7 @@ const App = () => {
                 path="/user/:login"
                 render={props => <UserProfile {...props} />}
               />
+              <Route component={NotFound} />
             </Switch>
             <div
               className="smallBlobContainer"
